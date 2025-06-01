@@ -7,5 +7,5 @@ RUN mvn clean package -DskipTests
 # Use OpenJDK to run the app
 FROM openjdk:17-jdk-slim
 WORKDIR /app
-COPY --from=build /app/target/EliteCrew-0.0.1-SNAPSHOT.war app.war
-CMD ["java", "-jar", "app.war"]
+COPY --from=build /app/target/EliteCrew-0.0.1-SNAPSHOT.jar app.jar
+CMD ["java", "-jar", "app.jar"]
