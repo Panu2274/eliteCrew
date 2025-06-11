@@ -118,8 +118,10 @@
                 </c:forEach>
             </select>
         </div>
-
-        <button type="submit" class="btn btn-primary w-100">Create Team</button>
+	<!-- Submit and Cancel Buttons -->
+<button type="submit" class="btn btn-primary w-100">Create Team</button>
+<a href="/admin/adminPanel" class="btn btn-secondary w-100 mt-2">Cancel</a>
+	
     </form>
 </div>
 

@@ -54,10 +54,10 @@ public class MemberController {
                 model.addAttribute("tm", tm);
                 return "user/myProfile"; 
              }
-            // If memberId stored but no member found, clear session and show input form:
+            
             session.removeAttribute("memberId");
         }
-        // No memberId in session, show ID input form
+      
         return "user/checkMember";
     }
 
@@ -66,7 +66,7 @@ public class MemberController {
 	    TeamMembers tm = ti.getMember(id);
 
 	    if (tm == null || tm.getId() == 0) {
-	        // Log or debug to confirm we're detecting missing members
+	       
 	        System.out.println("Member not found with ID: " + id);
 
 	        session.setAttribute("memberId", id);
@@ -88,31 +88,49 @@ public class MemberController {
         session.setAttribute("memberId", tm.getId());
         return "redirect:/user/";
     }
-	
-	 @RequestMapping("/saveMember")
-	    public String addOrEdit(@ModelAttribute TeamMembers tm, Model m) {
-	        ti.saveTeamMembers(tm);
-	        List<TeamMembers> members = ti.getAllTeamMembers();
-	        m.addAttribute("teamMembers", members);
-	        return "redirect:/user/";
+	@RequestMapping("/saveMember")
+	public String addOrEdit(@ModelAttribute TeamMembers tm, HttpSession session, Model m) {
+	    TeamMembers existing = ti.getMember(tm.getId());
+
+	    if (existing != null) {
+	        // Preserve existing team
+	        if (tm.getTeam() == null || tm.getTeam().getId() == 0) {
+	            tm.setTeam(existing.getTeam());
+	        }
 	    }
-	 
-	 @RequestMapping("/myTeam")
-	 public String viewMyTeam(HttpSession hs,Model m) {
-		Integer userId = (Integer)hs.getAttribute("memberId");
-		TeamMembers tm=ti.getMember(userId);
-		int tid=tm.getTeam().getId();
-		Team t=ti.getTeam(tid);
-		m.addAttribute("team", t);
-		System.out.println("Team Id :" + tid);
-		return "user/myTeam";
-	 }
+
+	    ti.saveTeamMembers(tm);
+	    session.setAttribute("memberId", tm.getId());
+	    return "redirect:/user/";
+	}
+
+
+	@RequestMapping("/myTeam")
+	public String viewMyTeam(HttpSession hs, Model m) {
+	    Integer userId = (Integer) hs.getAttribute("memberId");
+	    
+	    TeamMembers tm = ti.getMember(userId);
+
+	    // Check if member or team is null
+	    if (tm == null || tm.getTeam() == null) {
+	        return "user/notfound"; // Redirect to notfound.jsp
+	    }
+
+	    int tid = tm.getTeam().getId();
+	    Team t = ti.getTeam(tid);
+
+	    m.addAttribute("team", t);
+	    System.out.println("Team Id: " + tid);
+
+	    return "user/myTeam"; // If team exists
+	}
+
 	 
 	 @RequestMapping("/viewMembers")
 	    public String viewMembers(Model m) {
 	        List<TeamMembers> members = ti.getAllTeamMembers(); // Adjust service method as per your structure
 	        m.addAttribute("teamMembers", members);
-	        return "user/viewMembers"; // JSP file name
+	        return "user/viewMembers"; 
 	    }
 
 	 

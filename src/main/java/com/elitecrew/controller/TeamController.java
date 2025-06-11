@@ -70,7 +70,16 @@ public class TeamController {
 
     @RequestMapping("/saveTeamMembers")
     public String saveTeamMembers(@ModelAttribute TeamMembers tm) {
-    	ti.saveTeamMembers(tm);
+    	TeamMembers existing = ti.getMember(tm.getId());
+
+        if (existing != null) {
+            // Preserve existing team
+            if (tm.getTeam() == null || tm.getTeam().getId() == 0) {
+                tm.setTeam(existing.getTeam());
+            }
+        }
+
+        ti.saveTeamMembers(tm);
     	return "redirect:/admin/adminPanel";
     }
     

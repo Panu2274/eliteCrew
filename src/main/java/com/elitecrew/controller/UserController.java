@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.elitecrew.model.RegisteredUser;
 import com.elitecrew.servicei.UserServiceI;
 
-import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class UserController {

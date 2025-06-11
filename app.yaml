@@ -1,0 +1,12 @@
+runtime: custom
+env: flex
+
+entrypoint: java -jar app.jar
+
+manual_scaling:
+  instances: 1
+
+resources:
+  memory_gb: 1
+  cpu: 1
+  disk_size_gb: 10

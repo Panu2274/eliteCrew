@@ -1,14 +1,9 @@
-# Use OpenJDK base image
 FROM openjdk:17-jdk-slim
 
-# Set working directory
 WORKDIR /app
 
-# Copy jar file into container
-COPY target/*.jar app.jar
+# Copy the WAR file, NOT jar
+COPY target/EliteCrew-0.0.1-SNAPSHOT.war app.war
 
-# Expose port
-EXPOSE 8080
-
-# Run the app
-ENTRYPOINT ["java", "-jar", "app.jar"]
+# Run the WAR with embedded Tomcat
+CMD ["java", "-jar", "app.war"]

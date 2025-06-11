@@ -99,6 +99,9 @@
         </div>
 
         <button type="submit" class="btn btn-success w-100">Update Team</button>
+   		<a href="/manager/" class="btn btn-secondary w-100 mt-2">Cancel</a>
+	
+   
     </form>
 </div>
 

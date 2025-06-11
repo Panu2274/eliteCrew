@@ -23,9 +23,6 @@ public class TeamMembers {
 	@JoinColumn(name = "team_id", nullable = true)
 	private Team team;
 	
-	@ManyToOne
-	@JoinColumn(name = "member_id")
-	private TeamMembers members;
 	
 
 	public int getId() {

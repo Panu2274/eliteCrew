@@ -39,6 +39,9 @@
             <input type="number" class="form-control" id="id" name="id" required />
         </div>
         <button type="submit" class="btn btn-primary">Check</button>
+        <a href="/user/" class="btn btn-secondary w-100 mt-2">Cancel</a>
+	
+   
     </form>
 </div>
 

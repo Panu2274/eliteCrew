@@ -66,7 +66,19 @@
                 <label for="experience" class="form-label">Experience (in years)</label>
                 <input type="number" class="form-control" id="experience" name="experience" value="${tm.experience }" required>
             </div>
+            <!-- Displayed but disabled (for UI only) -->
+			<div class="mb-3">
+			    <label for="teamId" class="form-label">Team ID</label>
+			    <input type="text" class="form-control" id="teamId" value="${tm.team.id}" disabled>
+			</div>
+			
+			<!-- Hidden field to actually submit team.id -->
+			<input type="hidden" name="team.id" value="${tm.team.id}">
+			            
             <button type="submit" class="btn btn-primary">Submit</button>
+            <a href="/user/" class="btn btn-secondary w-100 mt-2">Cancel</a>
+	
+   
         </form>
     </div>
 </div>
